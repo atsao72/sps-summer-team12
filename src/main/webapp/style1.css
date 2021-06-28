@@ -1,0 +1,81 @@
+body{
+    background-color: lavender;
+}
+
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;
+}
+
+#greeting-container {
+  margin-top: 20px;
+}
+
+#androids{
+    border-radius: 50%;
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: outset;
+}
+
+#header{
+    border-style: outset;
+    background-color: paleturquoise;
+    text-align: center;
+    padding: 2%;
+}
+
+#inner{
+    border-style: groove;
+    background-color: skyblue;
+}
+
+#inner2{
+    
+    background-color: skyblue;
+    padding: 5%;
+}
+
+#categories{
+    border-style: groove;
+    margin: 5%;
+}
+
+#random-image-container1 img {
+  width: 70%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+#random-image-container2 img {
+  width: 70%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+#picbutton{
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+#page-edge{
+  border-style: inset;
+  background-color: moccasin;
+  padding: 2%;
+  text-align: center;
+}
+
+#subparameter{
+  background-color: paleturquoise;
+  padding: 3%;
+  border-radius: 20px;
+}

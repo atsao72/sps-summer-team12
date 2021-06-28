@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Location Post</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="content">
+        <div id="categories">
+          <div id="header">
+            <h2>Location Post</h2>
+          </div>
+          <div id="inner2">
+            <div id="subparameter">
+              <h3>Please fill out the parameters below; this allows other users to find your location!</h3>
+            </div>
+            <br>              
+            <form method="POST" action="/form-handler">
+                
+              <div id="subparameter">
+                <p>How would you rate the noise level out of 5?</p>
+                <p>[Silent! = 1, Loud! = 5]</p>
+                <input type="radio" id="noise1" name="noise" value="1">
+                <label for="noise1">1</label>
+                <input type="radio" id="noise2" name="noise" value="2">
+                <label for="noise2">2</label>
+                <input type="radio" id="noise3" name="noise" value="3" required>
+                <label id="noise3">3</label>
+                <input type="radio" id="noise4" name="noise" value="4">
+                <label id="noise4">4</label>
+                <input type="radio" id="noise5" name="noise" value="5">
+                <label id="noise5">5</label>
+              </div>
+
+              <br>
+
+              <div id="subparameter">
+                <p>How would you rate the spaciousness out of 5?</p>
+                <p>[Cramped! = 1, Roomy! = 5]</p>
+                <input type="radio" id="space1" name="space" value="1">
+                <label for="space1">1</label>
+                <input type="radio" id="space2" name="space" value="2">
+                <label for="space2">2</label>
+                <input type="radio" id="space3" name="space" value="3" required>
+                <label id="space3">3</label>
+                <input type="radio" id="space4" name="space" value="4">
+                <label id="space4">4</label>
+                <input type="radio" id="space5" name="space" value="5">
+                <label id="space5">5</label>
+              </div>
+
+              <br>
+
+              <div id="subparameter">
+                <p>Was there sufficient parking?</p>
+                <input type="radio" id="sufficient" name="parking" value="1" required>
+                <label for="sufficient">Yes</label>
+                <input type="radio" id="insufficient" name="parking" value="2">
+                <label for="insufficient">No</label>
+              </div>
+
+              <br>
+              <div id="subparameter">
+                <p>General thoughts or review? (Optional):</p>
+                <textarea name="review-input" required></textarea>
+              </div>
+              <br>
+              <input type="submit"/>
+            </form>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

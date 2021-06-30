@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Location Post</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script src="script1.js"></script>
     <link rel="stylesheet" href="style1.css">
-    <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="createMap();">
     <div id="content">
         <div id="categories">
           <div id="header">
@@ -16,9 +17,14 @@
             <div id="subparameter">
               <h3>Please fill out the parameters below; this allows other users to find your location!</h3>
             </div>
-            <br>              
+            <br>
+            <div id="subparameter">
+              <div id="map"></div> 
+              <br> 
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> 
+            </div>
+            <br>
             <form method="POST" action="/form-handler">
-                
               <div id="subparameter">
                 <p>How would you rate the noise level out of 5?</p>
                 <p>[Silent! = 1, Loud! = 5]</p>
@@ -33,9 +39,7 @@
                 <input type="radio" id="noise5" name="noise" value="5">
                 <label id="noise5">5</label>
               </div>
-
               <br>
-
               <div id="subparameter">
                 <p>How would you rate the spaciousness out of 5?</p>
                 <p>[Cramped! = 1, Roomy! = 5]</p>
@@ -50,9 +54,7 @@
                 <input type="radio" id="space5" name="space" value="5">
                 <label id="space5">5</label>
               </div>
-
               <br>
-
               <div id="subparameter">
                 <p>Was there sufficient parking?</p>
                 <input type="radio" id="sufficient" name="parking" value="1" required>
@@ -60,10 +62,24 @@
                 <input type="radio" id="insufficient" name="parking" value="2">
                 <label for="insufficient">No</label>
               </div>
-
               <br>
               <div id="subparameter">
-                <p>General thoughts or review? (Optional):</p>
+                <p>Overall Rating:</p>
+                <p>[Horrible! = 1, Amazing! = 5]</p>
+                <input type="radio" id="rating1" name="rating" value="1">
+                <label for="rating1">1</label>
+                <input type="radio" id="rating2" name="rating" value="2">
+                <label for="rating2">2</label>
+                <input type="radio" id="rating3" name="rating" value="3" required>
+                <label id="rating3">3</label>
+                <input type="radio" id="rating4" name="rating" value="4">
+                <label id="rating4">4</label>
+                <input type="radio" id="rating5" name="rating" value="5">
+                <label id="rating5">5</label>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>General thoughts? (Optional):</p>
                 <textarea name="review-input" required></textarea>
               </div>
               <br>
@@ -72,5 +88,8 @@
           </div>
         </div>
     </div>
+    <script async
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&libraries=places&callback=initMap">
+    </script> 
   </body>
 </html>

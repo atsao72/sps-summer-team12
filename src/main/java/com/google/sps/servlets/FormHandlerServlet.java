@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
 /**
- * Responsible for collecting and storing contact-me.html form data
+ * Responsible for collecting and storing location-post.html form data
  */
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
@@ -24,57 +24,44 @@ public class FormHandlerServlet extends HttpServlet {
     boolean parking = false;
     int noiseScore = 0;
     int spaceScore = 0;
+    int ratingScore = 0;
     
     //Checking which radio button is selected for noise level
-    switch(request.getParameter("noise").charAt(0)){
-        case '1':
-            noiseScore = 1;
-            break;
-        case '2':
-            noiseScore = 2;
-            break;
-        case '3':
-            noiseScore = 3;
-            break;
-        case '4':
-            noiseScore = 4;
-            break;
-        case '5':
-            noiseScore = 5;
-            break;
-    }
+    noiseScore = getScore(request.getParameter("noise").charAt(0));
 
-    //Checking which radio button is selected for noise level
-    switch(request.getParameter("space").charAt(0)){
-        case '1':
-            spaceScore = 1;
-            break;
-        case '2':
-            spaceScore = 2;
-            break;
-        case '3':
-            spaceScore = 3;
-            break;
-        case '4':
-            spaceScore = 4;
-            break;
-        case '5':
-            spaceScore = 5;
-            break;
-    }
+    //Checking which radio button is selected for space level
+    spaceScore = getScore(request.getParameter("space").charAt(0));
 
     //Checking if parking is available
-    if("1".equals(request.getParameter("parking")))
-        parking = true;
+    parking = request.getParameter("parking").equals("1");
 
+    //Checking which radio button is selected for overall review
+    ratingScore = getScore(request.getParameter("rating").charAt(0));
 
     //Printing data to confirm that form contents have been read
-    String form = "Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", Parking Available: " + parking + ", User Review: " + userReview;
+    String form = "Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", User Review: " + userReview;
     System.out.println(form);
 
     //TODO: Save data to database
 
     response.sendRedirect("index.html");
 
+  }
+
+  private int getScore(char parameterChar){
+        switch(parameterChar){
+        case '1':
+            return 1;
+        case '2':
+            return 2;
+        case '3':
+            return 3;
+        case '4':
+            return 4;
+        case '5':
+            return 5;
+        default:
+            return 0;
+    }
   }
 }

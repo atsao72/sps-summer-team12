@@ -8,30 +8,11 @@ body{
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
-}
-
-#androids{
-    border-radius: 50%;
-    max-width: 50%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: outset;
-}
-
 #header{
     border-style: outset;
     background-color: paleturquoise;
     text-align: center;
     padding: 2%;
-}
-
-#inner{
-    border-style: groove;
-    background-color: skyblue;
 }
 
 #inner2{
@@ -45,37 +26,28 @@ body{
     margin: 5%;
 }
 
-#random-image-container1 img {
-  width: 70%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;  
-}
-
-#random-image-container2 img {
-  width: 70%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;  
-}
-
-#picbutton{
-  display: block;
-  margin-left: auto;
-  margin-right: auto; 
-}
-
-#page-edge{
-  border-style: inset;
-  background-color: moccasin;
-  padding: 2%;
-  text-align: center;
-}
-
 #subparameter{
   background-color: paleturquoise;
   padding: 3%;
   border-radius: 20px;
+}
+
+#map {
+  border: thin solid black;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 400px; 
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  width: 400px;
+  height: 30px;
+  margin: auto;
+  display: block;
 }

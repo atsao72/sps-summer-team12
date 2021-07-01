@@ -16,18 +16,14 @@
 function createMap() {
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, 
-      zoom: 16,
-      //clickableIcons: false,
-      //gestureHandling: "none"
+      {center: {lat: 39.8097343, lng: -98.5556199}, 
+      zoom: 3.5,
     });
-
 
   // Create the search box and link it to the UI element.
   const input = document.getElementById("pac-input");
 
   const searchBox = new google.maps.places.SearchBox(input);
-  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener("bounds_changed", () => {
@@ -35,19 +31,20 @@ function createMap() {
   });
   let markers = [];
 
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
+  // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
 
     if (places.length == 0) {
       return;
     }
+
     // Clear out the old markers.
     markers.forEach((marker) => {
       marker.setMap(null);
     });
     markers = [];
+    
     // For each place, get the icon, name and location.
     const bounds = new google.maps.LatLngBounds();
     places.forEach((place) => {
@@ -62,6 +59,7 @@ function createMap() {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25),
       };
+      
       // Create a marker for each place.
       markers.push(
         new google.maps.Marker({
@@ -87,9 +85,11 @@ async function setLocation(){
     const input = document.getElementById("pac-input");
     const locationBox = document.getElementById('location-box');
     //Prevents empty string from being saved/displayed
+    
     if(input.value.length > 0){
         locationBox.innerText = input.value;
     }
+
 }
 
 

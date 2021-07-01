@@ -25,6 +25,7 @@ public class FormHandlerServlet extends HttpServlet {
     int noiseScore = 0;
     int spaceScore = 0;
     int ratingScore = 0;
+    String locationName = Jsoup.clean(request.getParameter("location"), Whitelist.none());
     
     //Checking which radio button is selected for noise level
     noiseScore = getScore(request.getParameter("noise").charAt(0));
@@ -39,7 +40,7 @@ public class FormHandlerServlet extends HttpServlet {
     ratingScore = getScore(request.getParameter("rating").charAt(0));
 
     //Printing data to confirm that form contents have been read
-    String form = "Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", User Review: " + userReview;
+    String form = "Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", User Review: " + userReview + ", Location: " + locationName;
     System.out.println(form);
 
     //TODO: Save data to database

@@ -3,9 +3,9 @@ body{
 }
 
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
 }
 
 #header{
@@ -27,27 +27,48 @@ body{
 }
 
 #subparameter{
-  background-color: paleturquoise;
-  padding: 3%;
-  border-radius: 20px;
+    background-color: paleturquoise;
+    padding: 3%;
+    border-radius: 20px;
+}
+
+#subparameter2{
+    background-color: lightcyan;
+    padding: 3%;
+    border-radius: 20px;
 }
 
 #map {
-  border: thin solid black;
-  border-radius: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  height: 400px; 
+    border: thin solid black;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px; 
 }
 
 #pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  text-overflow: ellipsis;
-  width: 400px;
-  height: 30px;
-  margin: auto;
-  display: block;
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    width: 400px;
+    height: 30px;
+    margin: auto;
+    display: block;
+}
+
+#textbox{
+    resize: none;
+    height: 100px;
+    width: 90%;
+    margin: auto;
+    display: block;
+}
+
+#location-box{
+    width: 90%;
+    margin: auto;
+    display: block;
+    resize: none;    
 }

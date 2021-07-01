@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Location Post</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
     <script src="script1.js"></script>
     <link rel="stylesheet" href="style1.css">
   </head>
@@ -18,13 +18,22 @@
               <h3>Please fill out the parameters below; this allows other users to find your location!</h3>
             </div>
             <br>
-            <div id="subparameter">
-              <div id="map"></div> 
-              <br> 
-              <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> 
-            </div>
-            <br>
+
             <form method="POST" action="/form-handler">
+              <div id="subparameter">
+                <div id="map"></div> 
+                <br> 
+                <input id="pac-input" class="controls" type="text" placeholder="Search a Location"/> 
+                <br>
+                <button type="button" onclick="setLocation()">Set Location</button>
+                <br>
+                <br>
+                <div id="subparameter2">
+                  <h4>Your Selected Location:</h4>
+                  <textarea name= "location" id="location-box" readonly required></textarea>
+                </div>
+              </div>
+              <br>
               <div id="subparameter">
                 <p>How would you rate the noise level out of 5?</p>
                 <p>[Silent! = 1, Loud! = 5]</p>
@@ -80,7 +89,7 @@
               <br>
               <div id="subparameter">
                 <p>General thoughts? (Optional):</p>
-                <textarea name="review-input" required></textarea>
+                <textarea id="textbox" name="review-input"></textarea>
               </div>
               <br>
               <input type="submit"/>
@@ -89,7 +98,7 @@
         </div>
     </div>
     <script async
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE&libraries=places&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=places&callback=initMap">
     </script> 
   </body>
 </html>

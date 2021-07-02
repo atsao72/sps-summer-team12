@@ -1,74 +1,88 @@
 body{
-    background-color: lavender;
+  background-color: lavender;
 }
 
 #content {
-    margin-left: auto;
-    margin-right: auto;
-    width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;
 }
 
 #header{
-    border-style: outset;
-    background-color: paleturquoise;
-    text-align: center;
-    padding: 2%;
+  border-style: outset;
+  background-color: paleturquoise;
+  text-align: center;
+  padding: 2%;
 }
 
 #inner2{
-    
-    background-color: skyblue;
-    padding: 5%;
+  background-color: skyblue;
+  padding: 5%;
 }
 
 #categories{
-    border-style: groove;
-    margin: 5%;
+  border-style: groove;
+  margin: 5%;
 }
 
 #subparameter{
-    background-color: paleturquoise;
-    padding: 3%;
-    border-radius: 20px;
+  background-color: paleturquoise;
+  padding: 3%;
+  border-radius: 20px;
 }
 
 #subparameter2{
-    background-color: lightcyan;
-    padding: 3%;
-    border-radius: 20px;
+  background-color: lightcyan;
+  padding: 3%;
+  border-radius: 20px;
+}
+
+
+#subparameter3{
+  background-color: lightcyan;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 1%;
+  margin-bottom: 1%;  
+  padding: 0.2%;
+  border-radius: 20px;
 }
 
 #map {
-    border: thin solid black;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 400px; 
+  border: thin solid black;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 400px; 
 }
 
 #pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    text-overflow: ellipsis;
-    width: 400px;
-    height: 30px;
-    margin: auto;
-    display: block;
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  width: 400px;
+  height: 30px;
+  margin: auto;
+  display: block;
 }
 
 #textbox{
-    resize: none;
-    height: 100px;
-    width: 90%;
-    margin: auto;
-    display: block;
+  resize: none;
+  height: 100px;
+  width: 90%;
+  margin: auto;
+  display: block;
 }
 
 #location-box{
-    width: 90%;
-    margin: auto;
-    display: block;
-    resize: none;    
+  width: 90%;
+  margin: auto;
+  display: block;
+  resize: none;    
+}
+
+#header-font{
+  font-family: Arial, Helvetica, sans-serif;
 }

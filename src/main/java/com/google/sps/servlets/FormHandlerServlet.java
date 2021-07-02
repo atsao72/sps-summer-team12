@@ -41,8 +41,11 @@ public class FormHandlerServlet extends HttpServlet {
     ratingScore = getScore(request.getParameter("rating").charAt(0));
 
     //Printing data to confirm that form contents have been read
-    String form = "Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", User Review: " + userReview + ", Location: " + locationName + ", Category: " + category;
+    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", User Review: " + userReview;
     System.out.println(form);
+
+    //Creating a post class
+    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview);
 
     //TODO: Save data to database
     //TODO: Sentiment analysis for textbox

@@ -29,12 +29,14 @@ body{
   background-color: paleturquoise;
   padding: 3%;
   border-radius: 20px;
+  border: thin solid black;
 }
 
 #subparameter2{
   background-color: lightcyan;
   padding: 3%;
   border-radius: 20px;
+  border: thin solid black;
 }
 
 
@@ -46,6 +48,7 @@ body{
   margin-bottom: 1%;  
   padding: 0.2%;
   border-radius: 20px;
+  border: thin solid black;
 }
 
 #map {

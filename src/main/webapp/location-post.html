@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Location Post</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
+    <script src="script1.js"></script>
+    <script>
+        function validateForm() {
+            let x = document.forms["postForm"]["location"].value;
+            if (x == "") {
+                alert("Set a Location Before Posting");
+                return false;
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style1.css">
+  </head>
+  <body onload="createMap();">
+    <div id="content">
+        <div id="categories">
+          <div id="header">
+            <div id="subparameter3">
+              <h2 id="header-font">Location Post</h2>
+            </div>
+          </div>
+          <div id="inner2">
+            <div id="subparameter">
+              <div id="subparameter2">
+                <h4 id="header-font">Please fill out the parameters below; this allows other users to find your location!</h4>
+              </div>
+            </div>
+            <br>
+
+            <form name="postForm" method="POST" action="/form-handler" onsubmit="return validateForm()">
+              <div id="subparameter">
+                <div id="map"></div> 
+                <br> 
+                <input id="pac-input" class="controls" type="text" placeholder="Search a Location"/> 
+                <br>
+                <button type="button" onclick="setLocation()">Set Location</button>
+                <br>
+                <br>
+                <div id="subparameter2">
+                  <h4 id="header-font">Your Selected Location:</h4>
+                  <textarea name= "location" id="location-box" readonly></textarea>
+                  <select name="categories" id="categories" required>
+                    <option value="">None</option>
+                    <option value="Food">Food</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Study">Study</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>How would you rate the noise level out of 5?</p>
+                <div id="subparameter2">
+                  <p>[Silent! = 1, Loud! = 5]</p>
+                  <input type="radio" id="noise1" name="noise" value="1">
+                  <label for="noise1">1</label>
+                  <input type="radio" id="noise2" name="noise" value="2">
+                  <label for="noise2">2</label>
+                  <input type="radio" id="noise3" name="noise" value="3" required>
+                  <label id="noise3">3</label>
+                  <input type="radio" id="noise4" name="noise" value="4">
+                  <label id="noise4">4</label>
+                  <input type="radio" id="noise5" name="noise" value="5">
+                  <label id="noise5">5</label>
+                </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>How would you rate the spaciousness out of 5?</p>
+                <div id="subparameter2">
+                  <p>[Cramped! = 1, Roomy! = 5]</p>
+                  <input type="radio" id="space1" name="space" value="1">
+                  <label for="space1">1</label>
+                  <input type="radio" id="space2" name="space" value="2">
+                  <label for="space2">2</label>
+                  <input type="radio" id="space3" name="space" value="3" required>
+                  <label id="space3">3</label>
+                  <input type="radio" id="space4" name="space" value="4">
+                  <label id="space4">4</label>
+                  <input type="radio" id="space5" name="space" value="5">
+                  <label id="space5">5</label>
+                </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>Was there sufficient parking?</p>
+                <div id="subparameter2">
+                  <input type="radio" id="sufficient" name="parking" value="1" required>
+                  <label for="sufficient">Yes</label>
+                  <input type="radio" id="insufficient" name="parking" value="2">
+                  <label for="insufficient">No</label>
+                </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>Overall Rating:</p>
+                <div id="subparameter2">
+                  <p>[Horrible! = 1, Amazing! = 5]</p>
+                  <input type="radio" id="rating1" name="rating" value="1">
+                  <label for="rating1">1</label>
+                  <input type="radio" id="rating2" name="rating" value="2">
+                  <label for="rating2">2</label>
+                  <input type="radio" id="rating3" name="rating" value="3" required>
+                  <label id="rating3">3</label>
+                  <input type="radio" id="rating4" name="rating" value="4">
+                  <label id="rating4">4</label>
+                  <input type="radio" id="rating5" name="rating" value="5">
+                  <label id="rating5">5</label>
+                </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>General thoughts? (Optional):</p>
+                <textarea id="textbox" name="review-input"></textarea>
+              </div>
+              <br>
+              <input type="submit"/>
+            </form>
+          </div>
+        </div>
+    </div>
+    <script async
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=places&callback=initMap">
+    </script> 
+  </body>
+</html>

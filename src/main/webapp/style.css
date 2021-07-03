@@ -1,9 +1,80 @@
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+    background-color: lightblue;
+    padding-bottom: 125px;
+    border-bottom: 5px dotted whitesmoke;
+
+}
+
+.h1{
+    float: left;
+    width: 49%;
+    text-align: center;
+    padding-top: 20px;
+    color: black;
+    font-family: sans-serif;
+}
+
+.navbar-make-a-post{
+    float: left;
+    width:49%;   
+    text-align: right;
+    padding-top: 60px;
+    font-family: georgia;
+
+}
+.navbar-make-a-post a:link{
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-make-a-post a:hover{
+    text-decoration: underline;
+    color: darkblue;
+} 
+
+.h2 {
+    font-family: sans-serif;
+}
+.zip-code-form-box{
+    font-family: georgia;
+}
+
+.zip-code-form {
+    background-color: lightblue;
+    padding: 70px;
+    padding-bottom: 50%;
+    text-align: center;
+
+}
+
+.zip-code {
+    border-radius: 5px;
+    padding: 10px;
+    font-family: georgia;
+}
+
+.multi_select_box{
+    width: 80%;
+    position: relative;
+    padding-left: 50px;
+    font-family: georgia;
+}
+
+.multi_select_box select{
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: georgia;
+}
+
+.submit-btn{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: lavender;
+
 }

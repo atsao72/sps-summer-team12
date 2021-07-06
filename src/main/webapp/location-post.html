@@ -32,7 +32,7 @@
             </div>
             <br>
 
-            <form name="postForm" method="POST" action="/form-handler" onsubmit="return validateForm()">
+            <form name="postForm" method="POST" action="/form-handler" onsubmit="return validateForm()" enctype="multipart/form-data">
               <div id="subparameter">
                 <div id="map"></div> 
                 <br> 
@@ -114,6 +114,13 @@
                   <input type="radio" id="rating5" name="rating" value="5">
                   <label id="rating5">5</label>
                 </div>
+              </div>
+              <br>
+              <div id="subparameter">
+                <p>Upload an image (Optional):</p> 
+                <div id="subparameter2">
+                    <input type="file" name="image">
+                </div>   
               </div>
               <br>
               <div id="subparameter">

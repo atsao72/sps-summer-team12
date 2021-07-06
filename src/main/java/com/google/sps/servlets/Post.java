@@ -17,9 +17,11 @@ public final class Post {
     private int ratingScore;
     private String locationName;
     private String category;
+    private String imageURL;
+    private boolean hasImage;
 
 
-    public Post(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview){
+    public Post(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview, String imageURL, boolean hasImage){
         this.locationName = locationName;
         this.category = category;
         this.parking = parking;
@@ -27,5 +29,7 @@ public final class Post {
         this.noiseScore = noiseScore;
         this.spaceScore = spaceScore;
         this.userReview = userReview;
+        this.imageURL = imageURL;
+        this.hasImage = hasImage;
     }
 }

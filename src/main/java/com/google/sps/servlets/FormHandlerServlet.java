@@ -1,5 +1,5 @@
 package com.google.sps.servlets;
-
+import java.util.ArrayList;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -18,6 +18,16 @@ import javax.servlet.http.Part;
 import java.lang.String;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import com.google.cloud.vision.v1.AnnotateImageRequest;
+import com.google.cloud.vision.v1.AnnotateImageResponse;
+import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
+import com.google.cloud.vision.v1.EntityAnnotation;
+import com.google.cloud.vision.v1.Feature;
+import com.google.cloud.vision.v1.Image;
+import com.google.cloud.vision.v1.ImageAnnotatorClient;
+import com.google.protobuf.ByteString;
+import java.util.List;
+
 
 /**
  * Responsible for collecting and storing location-post.html form data
@@ -59,14 +69,25 @@ public class FormHandlerServlet extends HttpServlet {
     String fileName = filePart.getSubmittedFileName();
     InputStream fileInputStream = filePart.getInputStream();
 
-    // Upload the file and get its URL
+    // Upload the image and get its URL
     String imageURL;
     boolean hasImage;
+    ArrayList<String> imageTags = new ArrayList<String>();
     
+    // Upload the image and save metadata if provided
     try{
+        byte[] imageBytes = fileInputStream.readAllBytes();
         imageURL = uploadToCloudStorage(fileName, fileInputStream);
         hasImage = true;
+
+        // Get the labels of the image that the user uploaded.
+        List<EntityAnnotation> imageLabels = getImageLabels(imageBytes);
+        
+        for (EntityAnnotation label : imageLabels) {
+            imageTags.add(label.getDescription());
+        }
     }
+    // Case for no image uploaded
     catch(Exception e){
         imageURL = "";
         hasImage = false;
@@ -76,10 +97,23 @@ public class FormHandlerServlet extends HttpServlet {
     //TODO: Sentiment analysis for textbox
 
     //Creating a post class
-    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageURL, hasImage);
+    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageURL, hasImage,  imageTags);
 
     //Printing data to confirm that form contents have been read
-    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore  + ", Image Uploaded: " + hasImage + ", Image URL: " + "[" + imageURL + "]" + ", User Review: " + "[" + userReview +"]";
+    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", User Review: " + "[" + userReview +"]"  + ", Image Uploaded: " + hasImage + ", Image URL: " + "[" + imageURL + "]";
+    form += ", Image Tags: [";
+
+    int lastIndex = imageTags.size()-1;
+    for(String tag: imageTags){
+        form += tag;
+
+        //Prevents comma being added on last displayed tag
+        if(tag != imageTags.get(lastIndex))
+            form += ", ";
+    }
+
+    form += "]";
+
     System.out.println(form);
 
     response.sendRedirect("index.html");
@@ -117,5 +151,33 @@ public class FormHandlerServlet extends HttpServlet {
 
     // Return the uploaded file's URL.
     return blob.getMediaLink();
+  }
+
+  /**
+  * Uses the Google Cloud Vision API to generate a list of labels that apply to the image
+  * represented by the binary data stored in imgBytes.
+  */
+  private List<EntityAnnotation> getImageLabels(byte[] imageBytes) throws IOException {
+    ByteString byteString = ByteString.copyFrom(imageBytes);
+    Image image = Image.newBuilder().setContent(byteString).build();
+
+    Feature feature = Feature.newBuilder().setType(Feature.Type.LABEL_DETECTION).build();
+    AnnotateImageRequest request =
+        AnnotateImageRequest.newBuilder().addFeatures(feature).setImage(image).build();
+    List<AnnotateImageRequest> requests = new ArrayList<>();
+    requests.add(request);
+
+    ImageAnnotatorClient client = ImageAnnotatorClient.create();
+    BatchAnnotateImagesResponse batchResponse = client.batchAnnotateImages(requests);
+    client.close();
+    List<AnnotateImageResponse> imageResponses = batchResponse.getResponsesList();
+    AnnotateImageResponse imageResponse = imageResponses.get(0);
+
+    if (imageResponse.hasError()) {
+      System.err.println("Error getting image labels: " + imageResponse.getError().getMessage());
+      return null;
+    }
+
+    return imageResponse.getLabelAnnotationsList();
   }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
+
 /**
  * Responsible for collecting and storing location-post.html form data
  */
@@ -56,8 +57,8 @@ public class FormHandlerServlet extends HttpServlet {
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Post");
     FullEntity taskEntity =
         Entity.newBuilder(keyFactory.newKey())
-            .set("locationName", title)
-            .set("category", timestamp)
+            .set("locationName", locationName)
+            .set("category", category)
             .set("parking", parking)
             .set("ratingScore", ratingScore)
             .set("noiseScore", noiseScore)

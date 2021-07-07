@@ -1,6 +1,10 @@
 package com.google.sps.servlets;
 
-
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.KeyFactory;
 import java.lang.String;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+
 
 /**
  * Responsible for collecting and storing location-post.html form data
@@ -48,6 +53,19 @@ public class FormHandlerServlet extends HttpServlet {
     Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview);
 
     //TODO: Save data to database
+    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Post");
+    FullEntity taskEntity =
+        Entity.newBuilder(keyFactory.newKey())
+            .set("locationName", locationName)
+            .set("category", category)
+            .set("parking", parking)
+            .set("ratingScore", ratingScore)
+            .set("noiseScore", noiseScore)
+            .set("spaceScore", spaceScore)
+            .set("userReview", userReview)
+            .build();
+    datastore.put(taskEntity);
     //TODO: Sentiment analysis for textbox
 
     response.sendRedirect("index.html");

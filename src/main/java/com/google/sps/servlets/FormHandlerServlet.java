@@ -1,6 +1,7 @@
 package com.google.sps.servlets;
 
 import java.util.ArrayList;
+import com.google.cloud.datastore.ListValue;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -52,7 +53,6 @@ public class FormHandlerServlet extends HttpServlet {
     // Getting values entered in the form.
     String userReview = Jsoup.clean(request.getParameter("review-input"), Whitelist.none());
     boolean parking = false;
-    //imageUrl == ""
     int noiseScore = 0;
     int spaceScore = 0;
     int ratingScore = 0;
@@ -76,20 +76,21 @@ public class FormHandlerServlet extends HttpServlet {
 
     // Get the file chosen by the user.
     Part filePart = request.getPart("image");
-    String fileName = filePart.getSubmittedFileName();
+    String imageName = filePart.getSubmittedFileName();
     InputStream fileInputStream = filePart.getInputStream();
 
     // Upload the image and get its URL
     String imageURL = "";
-    boolean hasImage = false;
     ArrayList<String> imageTags = new ArrayList<String>();
     
     // Upload the image and save metadata if provided
-    if(!fileName.isEmpty()) {
+    if(!imageName.isEmpty()) {
         try {
             byte[] imageBytes = fileInputStream.readAllBytes();
-            imageURL = uploadToCloudStorage(fileName, fileInputStream);
-            hasImage = true;
+            //Making image name unique to prevent overrides from same file name uploads
+            imageName = System.currentTimeMillis() + imageName;
+            imageURL = uploadToCloudStorage(imageName, fileInputStream);
+
 
             // Get the labels of the image that the user uploaded.
             for (EntityAnnotation label : getImageLabels(imageBytes)) {
@@ -99,6 +100,14 @@ public class FormHandlerServlet extends HttpServlet {
             throw e;
         } 
     }
+
+    boolean hasImage = imageURL != "";
+
+    //Creating a post object
+    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageName, imageURL, hasImage, imageTags);
+    //Printing data to confirm that form contents have been read
+    newPost.printDebugString();
+    
 
     //TODO: Save data to database
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
@@ -112,17 +121,16 @@ public class FormHandlerServlet extends HttpServlet {
             .set("noiseScore", noiseScore)
             .set("spaceScore", spaceScore)
             .set("userReview", userReview)
+            .set("hasImage", hasImage)
+            .set("imageName", imageName)
+            .set("imageURL", imageURL)
+            .set("imageTags", convertArrayListToString(imageTags))
             .build();
     datastore.put(taskEntity);
+
+
     //TODO: Sentiment analysis for textbox
 
-    //Creating a post object
-    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageURL, hasImage,  imageTags);
-
-    //Printing data to confirm that form contents have been read
-    String form = generateDebugString(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, hasImage, imageURL, imageTags);
-
-    System.out.println(form);
 
     response.sendRedirect("index.html");
 
@@ -146,12 +154,12 @@ public class FormHandlerServlet extends HttpServlet {
   }
 
   /** Uploads a file to Cloud Storage and returns the uploaded file's URL. */
-  private static String uploadToCloudStorage(String fileName, InputStream fileInputStream) {
+  private static String uploadToCloudStorage(String imageName, InputStream fileInputStream) {
     String projectId = "summer21-sps-12";
     String bucketName = "summer21-sps-12.appspot.com";
     Storage storage =
         StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-    BlobId blobId = BlobId.of(bucketName, fileName);
+    BlobId blobId = BlobId.of(bucketName, imageName);
     BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
 
     // Upload the file to Cloud Storage.
@@ -189,25 +197,17 @@ public class FormHandlerServlet extends HttpServlet {
     return imageResponse.getLabelAnnotationsList();
   }
 
-  /**
-   * Function used to generate a debug string
-   */
-  private String generateDebugString(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview, boolean hasImage, String imageURL, ArrayList<String> imageTags){
-    //Printing data to confirm that form contents have been read
-    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", User Review: " + "[" + userReview +"]"  + ", Image Uploaded: " + hasImage + ", Image URL: " + "[" + imageURL + "]";
-    form += ", Image Tags: [";
+  private String convertArrayListToString(ArrayList<String> imageTags){
+      String form = "";
+        int lastIndex = imageTags.size()-1;
+        for(String tag: imageTags){
+            form += tag;
 
-    int lastIndex = imageTags.size()-1;
-    for(String tag: imageTags){
-        form += tag;
-
-        //Prevents comma being added on last displayed tag
-        if(tag != imageTags.get(lastIndex))
-            form += ", ";
-    }
-
-    form += "]";
-
-    return form;
+            //Prevents comma being added on last displayed tag
+            if(tag != imageTags.get(lastIndex))
+                form += "-";
+        }
+        return form;
   }
+
 }

@@ -1,10 +1,18 @@
 package com.google.sps.servlets;
+
 import java.util.ArrayList;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.KeyFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -27,6 +35,7 @@ import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.protobuf.ByteString;
 import java.util.List;
+
 
 
 /**
@@ -92,6 +101,19 @@ public class FormHandlerServlet extends HttpServlet {
     }
 
     //TODO: Save data to database
+    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Post");
+    FullEntity taskEntity =
+        Entity.newBuilder(keyFactory.newKey())
+            .set("locationName", locationName)
+            .set("category", category)
+            .set("parking", parking)
+            .set("ratingScore", ratingScore)
+            .set("noiseScore", noiseScore)
+            .set("spaceScore", spaceScore)
+            .set("userReview", userReview)
+            .build();
+    datastore.put(taskEntity);
     //TODO: Sentiment analysis for textbox
 
     //Creating a post object

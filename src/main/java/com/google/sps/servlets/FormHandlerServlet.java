@@ -43,6 +43,7 @@ public class FormHandlerServlet extends HttpServlet {
     // Getting values entered in the form.
     String userReview = Jsoup.clean(request.getParameter("review-input"), Whitelist.none());
     boolean parking = false;
+    //imageUrl == ""
     int noiseScore = 0;
     int spaceScore = 0;
     int ratingScore = 0;
@@ -70,49 +71,34 @@ public class FormHandlerServlet extends HttpServlet {
     InputStream fileInputStream = filePart.getInputStream();
 
     // Upload the image and get its URL
-    String imageURL;
-    boolean hasImage;
+    String imageURL = "";
+    boolean hasImage = false;
     ArrayList<String> imageTags = new ArrayList<String>();
     
     // Upload the image and save metadata if provided
-    try{
-        byte[] imageBytes = fileInputStream.readAllBytes();
-        imageURL = uploadToCloudStorage(fileName, fileInputStream);
-        hasImage = true;
+    if(!fileName.isEmpty()) {
+        try {
+            byte[] imageBytes = fileInputStream.readAllBytes();
+            imageURL = uploadToCloudStorage(fileName, fileInputStream);
+            hasImage = true;
 
-        // Get the labels of the image that the user uploaded.
-        List<EntityAnnotation> imageLabels = getImageLabels(imageBytes);
-        
-        for (EntityAnnotation label : imageLabels) {
-            imageTags.add(label.getDescription());
-        }
-    }
-    // Case for no image uploaded
-    catch(Exception e){
-        imageURL = "";
-        hasImage = false;
+            // Get the labels of the image that the user uploaded.
+            for (EntityAnnotation label : getImageLabels(imageBytes)) {
+                imageTags.add(label.getDescription());
+            }
+        } catch (Exception e) {
+            throw e;
+        } 
     }
 
     //TODO: Save data to database
     //TODO: Sentiment analysis for textbox
 
-    //Creating a post class
+    //Creating a post object
     Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageURL, hasImage,  imageTags);
 
     //Printing data to confirm that form contents have been read
-    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", User Review: " + "[" + userReview +"]"  + ", Image Uploaded: " + hasImage + ", Image URL: " + "[" + imageURL + "]";
-    form += ", Image Tags: [";
-
-    int lastIndex = imageTags.size()-1;
-    for(String tag: imageTags){
-        form += tag;
-
-        //Prevents comma being added on last displayed tag
-        if(tag != imageTags.get(lastIndex))
-            form += ", ";
-    }
-
-    form += "]";
+    String form = generateDebugString(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, hasImage, imageURL, imageTags);
 
     System.out.println(form);
 
@@ -155,7 +141,7 @@ public class FormHandlerServlet extends HttpServlet {
 
   /**
   * Uses the Google Cloud Vision API to generate a list of labels that apply to the image
-  * represented by the binary data stored in imgBytes.
+  * represented by the binary data stored in imageBytes.
   */
   private List<EntityAnnotation> getImageLabels(byte[] imageBytes) throws IOException {
     ByteString byteString = ByteString.copyFrom(imageBytes);
@@ -179,5 +165,27 @@ public class FormHandlerServlet extends HttpServlet {
     }
 
     return imageResponse.getLabelAnnotationsList();
+  }
+
+  /**
+   * Function used to generate a debug string
+   */
+  private String generateDebugString(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview, boolean hasImage, String imageURL, ArrayList<String> imageTags){
+    //Printing data to confirm that form contents have been read
+    String form = "Location: " + "[" + locationName + "]" + ", Category: " + category + ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + ", Space Rating: " + spaceScore + ", User Review: " + "[" + userReview +"]"  + ", Image Uploaded: " + hasImage + ", Image URL: " + "[" + imageURL + "]";
+    form += ", Image Tags: [";
+
+    int lastIndex = imageTags.size()-1;
+    for(String tag: imageTags){
+        form += tag;
+
+        //Prevents comma being added on last displayed tag
+        if(tag != imageTags.get(lastIndex))
+            form += ", ";
+    }
+
+    form += "]";
+
+    return form;
   }
 }

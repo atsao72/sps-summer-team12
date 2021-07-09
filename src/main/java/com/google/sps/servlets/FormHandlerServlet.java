@@ -88,13 +88,12 @@ public class FormHandlerServlet extends HttpServlet {
     // Upload the image and save metadata if provided
     if(!imageName.isEmpty()) {
         try {
-            byte[] imageBytes = fileInputStream.readAllBytes();
             //Making image name unique to prevent overrides from same file name uploads
             imageName = System.currentTimeMillis() + imageName;
             imageURL = uploadToCloudStorage(imageName, fileInputStream);
 
-
-            // Get the labels of the image that the user uploaded.
+            //Get the labels of the image that the user uploaded.
+            byte[] imageBytes = filePart.getInputStream().readAllBytes();
             for (EntityAnnotation label : getImageLabels(imageBytes)) {
                 imageTags.add(label.getDescription());
             }

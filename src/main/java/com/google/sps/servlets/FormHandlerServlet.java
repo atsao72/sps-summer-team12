@@ -52,6 +52,8 @@ public class FormHandlerServlet extends HttpServlet {
 
     // Getting values entered in the form.
     String userReview = Jsoup.clean(request.getParameter("review-input"), Whitelist.none());
+    String relevantReviewTags = convertArrayListToString(new EntityParser(userReview).getRelevantEntities());
+    String allReviewTags = convertArrayListToString(new EntityParser(userReview).getAllEntities());
     boolean parking = false;
     int noiseScore = 0;
     int spaceScore = 0;
@@ -101,15 +103,16 @@ public class FormHandlerServlet extends HttpServlet {
         } 
     }
 
+    //Checking if image was uploaded
     boolean hasImage = imageURL != "";
 
     //Creating a post object
-    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, imageName, imageURL, hasImage, imageTags);
+    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, allReviewTags, relevantReviewTags, imageName, imageURL, hasImage, convertArrayListToString(imageTags));
+    
     //Printing data to confirm that form contents have been read
     newPost.printDebugString();
-    
 
-    //TODO: Save data to database
+    //Storing information to datastore
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Post");
     FullEntity taskEntity =
@@ -121,6 +124,8 @@ public class FormHandlerServlet extends HttpServlet {
             .set("noiseScore", noiseScore)
             .set("spaceScore", spaceScore)
             .set("userReview", userReview)
+            .set("relevantReviewTags", relevantReviewTags)
+            .set("allReviewTags", allReviewTags)
             .set("hasImage", hasImage)
             .set("imageName", imageName)
             .set("imageURL", imageURL)
@@ -136,6 +141,7 @@ public class FormHandlerServlet extends HttpServlet {
 
   }
 
+  //Helper function used to determine user input of radio button ratings
   private int getScore(char parameterChar){
         switch(parameterChar){
         case '1':

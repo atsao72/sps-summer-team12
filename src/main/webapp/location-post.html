@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Location Post</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG8_7Ni-db-aEgmPtW9Dc1hoV7UREnPbA"></script>
     <script src="script1.js"></script>
     <script>
         function validateForm() {
@@ -32,7 +32,7 @@
             </div>
             <br>
 
-            <form name="postForm" method="POST" action="/form-handler" onsubmit="return validateForm()">
+            <form name="postForm" method="POST" action="/form-handler" onsubmit="return validateForm()" enctype="multipart/form-data">
               <div id="subparameter">
                 <div id="map"></div> 
                 <br> 
@@ -117,6 +117,13 @@
               </div>
               <br>
               <div id="subparameter">
+                <p>Upload an image (Optional):</p> 
+                <div id="subparameter2">
+                    <input type="file" name="image">
+                </div>   
+              </div>
+              <br>
+              <div id="subparameter">
                 <p>General thoughts? (Optional):</p>
                 <textarea id="textbox" name="review-input"></textarea>
               </div>
@@ -127,7 +134,7 @@
         </div>
     </div>
     <script async
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&libraries=places&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG8_7Ni-db-aEgmPtW9Dc1hoV7UREnPbA&libraries=places&callback=initMap">
     </script> 
   </body>
 </html>

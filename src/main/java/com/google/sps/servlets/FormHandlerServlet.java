@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 
+import java.util.Date;
 import java.util.ArrayList;
 import com.google.cloud.datastore.ListValue;
 import com.google.cloud.storage.Blob;
@@ -60,6 +61,7 @@ public class FormHandlerServlet extends HttpServlet {
     int ratingScore = 0;
     String locationName = Jsoup.clean(request.getParameter("location"), Whitelist.none());
     String category = request.getParameter("categories");
+    String timeStamp = new Date().toString();
     
     //Checking which radio button is selected for noise level
     noiseScore = getScore(request.getParameter("noise").charAt(0));
@@ -72,9 +74,6 @@ public class FormHandlerServlet extends HttpServlet {
 
     //Checking which radio button is selected for overall review
     ratingScore = getScore(request.getParameter("rating").charAt(0));
-
-    // Get the message entered by the user.
-    String message = request.getParameter("message");
 
     // Get the file chosen by the user.
     Part filePart = request.getPart("image");
@@ -106,7 +105,7 @@ public class FormHandlerServlet extends HttpServlet {
     boolean hasImage = imageURL != "";
 
     //Creating a post object
-    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, allReviewTags, relevantReviewTags, imageName, imageURL, hasImage, convertArrayListToString(imageTags));
+    Post newPost = new Post(locationName, category, parking, ratingScore, noiseScore, spaceScore, userReview, allReviewTags, relevantReviewTags, imageName, imageURL, hasImage, convertArrayListToString(imageTags), timeStamp);
     
     //Printing data to confirm that form contents have been read
     newPost.printDebugString();
@@ -129,6 +128,7 @@ public class FormHandlerServlet extends HttpServlet {
             .set("imageName", imageName)
             .set("imageURL", imageURL)
             .set("imageTags", convertArrayListToString(imageTags))
+            .set("timeStamp", timeStamp)
             .build();
     datastore.put(taskEntity);
 

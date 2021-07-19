@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Hanger</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
@@ -15,27 +15,63 @@
             </div>
             <div class="navbar-make-a-post">
                 <a href = "location-post.html" target = "_self">Post a Spot &ensp;</a>
-                <a href= "about-post.html" target= "_self">About</a>
+                <a href= "about.html" target= "_self">About</a>
             </div>
         </div>
 
         <div class ="zip-code-form">
-           <form action = " " method="POST">
+           <form action = "/search-form-handler" method="POST">
                 <h2>Looking For A Hangout/Study Spot Near you?</h2>
 
                 <br>
 
                 <div class="zip-code-form-box">
                     <p>Please enter your zip code below to help find a spot close to you</p>
-                    <input type="number" class="zip-code " placeholder="Enter your zip code...">
+                    <input type="number" name = "zip-code"class="zip-code " placeholder="Enter your zip code...">
+                    
+                    <br><br>
+
+                    <div class= "multi_select_box">
+                        <select name="categories" id="categories" required>
+                            <option value="">Select a Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Study">Study</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                 </diV> 
                 
-                <br><br>
+                <br>
 
                 <div class = "multi_select_box">
                         <p>You have a specific environmet in mind? <br> No worries, filter your search below</p>
-                    <select>
-                        <option value ="">Filter Your Search</option>
+                    <select name="filter1" id="filter1">
+                        <option value ="N/A">Add a filter/None</option>
+                        <option value = "noise"<input type = "checkbox" id = "noise">Quiet</label>
+                        <option value = "space" <input type = "checkbox" id = "space">Spacious</label>
+                        <option value = "parking" <input type = "checkbox" id = "parking">Parking</label>
+                    </select>
+                </div>
+                
+                <br>
+
+                <div class = "multi_select_box">
+                    <select name="filter2" id="filter2">
+                        <option value ="N/A">Add another filter/None</option>
+                        <option value = "noise"<input type = "checkbox" id = "noise">Quiet</label>
+                        <option value = "space" <input type = "checkbox" id = "space">Spacious</label>
+                        <option value = "parking" <input type = "checkbox" id = "parking">Parking</label>
+                    </select>
+                </div>
+                
+                <br>
+
+
+                <div class = "multi_select_box">
+                    <select name="filter3" id ="filter2">
+                        <option value ="N/A">Add another filter/None</option>
                         <option value = "noise"<input type = "checkbox" id = "noise">Quiet</label>
                         <option value = "space" <input type = "checkbox" id = "space">Spacious</label>
                         <option value = "parking" <input type = "checkbox" id = "parking">Parking</label>

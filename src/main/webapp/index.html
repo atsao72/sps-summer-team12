@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Hanger</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
@@ -19,7 +19,7 @@
         </div>
 
         <div class ="zip-code-form">
-           <form action = " " method="POST">
+           <form onsubmit="loadPosts()" method="POST">
                 <h2>Looking For A Hangout/Study Spot Near you?</h2>
 
                 <br>
@@ -27,24 +27,29 @@
                 <div class="zip-code-form-box">
                     <p>Please enter your zip code below to help find a spot close to you</p>
                     <input type="number" class="zip-code " placeholder="Enter your zip code...">
-                </diV> 
+                </div> 
                 
                 <br><br>
 
                 <div class = "multi_select_box">
                         <p>You have a specific environmet in mind? <br> No worries, filter your search below</p>
-                    <select>
-                        <option value ="">Filter Your Search</option>
-                        <option value = "noise"<input type = "checkbox" id = "noise">Quiet</label>
-                        <option value = "space" <input type = "checkbox" id = "space">Spacious</label>
+                    <select name = "categories" id ="categories">
+                        <option placeholder ="">Filter Your Search</option>
+                        <option value = "noiseScore"<input type = "checkbox" id = "noise">Quiet</label>
+                        <option value = "spaceScore" <input type = "checkbox" id = "space">Spacious</label>
                         <option value = "parking" <input type = "checkbox" id = "parking">Parking</label>
                     </select>
                 </div>
                 
                 <br><br>
+                
+                <input type="submit" class="submit-btn" value="Submit">
+            </form>
+            
+            <hr/>
 
-                <input type = "submit"/ class= "submit-btn">
-            </form>                    
+            <ul id="post-list"></ul>
+            
         </div>
     </div>
   </body>

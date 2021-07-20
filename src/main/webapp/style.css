@@ -4,6 +4,7 @@
     width: 650px;
 }
 
+.header{
     background-color: lightblue;
     padding-bottom: 125px;
     border-bottom: 5px dotted whitesmoke;
@@ -77,4 +78,20 @@
     border-radius: 5px;
     background-color: lavender;
 
+}
+
+#post-list {
+  list-style-type: none;
+}
+
+.post {
+  border: thin solid black;
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+}
+
+.post span {
+  flex-grow: 1;
 }

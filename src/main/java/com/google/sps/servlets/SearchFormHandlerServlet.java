@@ -41,6 +41,10 @@ public class SearchFormHandlerServlet extends HttpServlet {
             .set("filter1", filter3)
             .build();
     datastore.put(taskEntity);
-    }
 
+    response.sendRedirect("index.html");
+
+    }
 }
+
+

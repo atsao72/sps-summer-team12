@@ -43,7 +43,8 @@ public final class Post {
         this.imageTags = imageTags;
     }
 
-    /**
+
+	/**
     * Function used to generate a Post debug string
     */
     public String generateDebugString(){

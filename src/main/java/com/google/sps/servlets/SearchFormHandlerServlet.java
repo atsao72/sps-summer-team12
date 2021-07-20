@@ -37,8 +37,8 @@ public class SearchFormHandlerServlet extends HttpServlet {
             .set("zipCode", zipCode)
             .set("category", category)
             .set("filter1", filter1)
-            .set("filter1", filter2)
-            .set("filter1", filter3)
+            .set("filter2", filter2)
+            .set("filter3", filter3)
             .build();
     datastore.put(taskEntity);
 

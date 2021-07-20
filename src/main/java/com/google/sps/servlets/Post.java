@@ -24,10 +24,11 @@ public final class Post {
     private boolean hasImage;
     private String imageName;
     private String imageTags;
+    private String timeStamp;
 
 
 
-    public Post(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview, String allReviewTags, String relevantReviewTags, String imageName, String imageURL, boolean hasImage, String imageTags){
+    public Post(String locationName, String category, boolean parking, int ratingScore, int noiseScore, int spaceScore, String userReview, String allReviewTags, String relevantReviewTags, String imageName, String imageURL, boolean hasImage, String imageTags, String timeStamp){
         this.locationName = locationName;
         this.category = category;
         this.parking = parking;
@@ -41,6 +42,7 @@ public final class Post {
         this.hasImage = hasImage;
         this.imageName = imageName;
         this.imageTags = imageTags;
+        this.timeStamp = timeStamp;
     }
 
 
@@ -53,7 +55,7 @@ public final class Post {
         ", Parking Available: " + parking + ", Overall Rating: "+ ratingScore + ", Noise Rating: " + noiseScore + 
         ", Space Rating: " + spaceScore + ", User Review: [" + userReview  + "], Relevant Review Tags: [" + relevantReviewTags + 
         "], All Review Tags: [" + allReviewTags + "] , Image Uploaded: " + hasImage + ", Image Name: [" + imageName + 
-        "], Image URL: " + "[" + imageURL + "], Image Tags: [" + imageTags + "]";
+        "], Image URL: " + "[" + imageURL + "], Image Tags: [" + imageTags + "], Time Stamp: [" + timeStamp + "]";
 
         return form;
   }

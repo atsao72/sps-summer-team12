@@ -16,16 +16,18 @@ public final class Filter {
     private String filter1;
     private String filter2;
     private String filter3;
+    private long timestamp;
 
 
 
 
-    public Filter(String zipCode, String category, String filter1, String filter2, String filter3){
+    public Filter(String zipCode, String category, String filter1, String filter2, String filter3, long timestamp){
         this.zipCode = zipCode;
         this.category = category;
         this.filter1 = filter1;
         this.filter2 = filter2;
         this.filter3 = filter3;
+        this.timestamp = timestamp;
     }
 
 
@@ -35,7 +37,7 @@ public final class Filter {
     public String generateSearchFilterString(){
         //Printing data to confirm that form contents have been read
         String form = "Zip Code: [" + zipCode + "], Category: " + category + 
-        ", Filter 1: " + filter1 + ", Filter 2: "+ filter2 + ", Filter 3: " + filter3 + "]";
+        ", Filter 1: " + filter1 + ", Filter 2: "+ filter2 + ", Filter 3: " + filter3 + ", Timestamp: [" + timestamp + "]" ;
 
         return form;
   }

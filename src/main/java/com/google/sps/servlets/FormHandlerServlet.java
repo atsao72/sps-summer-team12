@@ -53,8 +53,13 @@ public class FormHandlerServlet extends HttpServlet {
 
     // Getting values entered in the form.
     String userReview = Jsoup.clean(request.getParameter("review-input"), Whitelist.none());
-    String relevantReviewTags = convertArrayListToString(new EntityParser(userReview).getRelevantEntities());
-    String allReviewTags = convertArrayListToString(new EntityParser(userReview).getAllEntities());
+
+    //String relevantReviewTags = convertArrayListToString(new EntityParser(userReview).getRelevantEntities());
+    //String allReviewTags = convertArrayListToString(new EntityParser(userReview).getAllEntities());
+
+    String relevantReviewTags = "";
+    String allReviewTags = "";
+
     boolean parking = false;
     int noiseScore = 0;
     int spaceScore = 0;
@@ -91,11 +96,12 @@ public class FormHandlerServlet extends HttpServlet {
             imageName = System.currentTimeMillis() + imageName;
             imageURL = uploadToCloudStorage(imageName, fileInputStream);
 
-            //Get the labels of the image that the user uploaded.
+            /**Get the labels of the image that the user uploaded.
             byte[] imageBytes = filePart.getInputStream().readAllBytes();
             for (EntityAnnotation label : getImageLabels(imageBytes)) {
                 imageTags.add(label.getDescription());
             }
+            */
         } catch (Exception e) {
             throw e;
         } 

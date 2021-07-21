@@ -15,10 +15,9 @@
 
 /** Loads the posts from the server and adds it to the DOM*/
 function loadPosts(){
-    console.log(document.getElementById('categories').value);
     fetch('/list-posts').then(response => response.json()).then((posts) => {
         const postListElement = document.getElementById('post-list');
-        posts.forEach((post) => {     
+        posts.forEach((post) => {    
             postListElement.appendChild(createPosts(post));
         })
     }); 
@@ -45,17 +44,7 @@ function createPosts(post){
 
 function format(post){
     const newPost = post.locationName + "\n Overall Rating: " + post.ratingScore + " \n Parking: " + post.parking + "\n Noise Level (1 is quiet, 5 is loud): " + post.noiseScore + "\n Space Rating (1 is cramped, 5 is roomy): " + post.spaceScore;
+    console.log(newPost);
 
     return newPost;
-}
-
-
-/**Validates the form */
-
-function formValidation(){
-    if(document.getElementById('categories').value != "Filter Your Search"){
-        loadPosts();
-    }else{
-        alert("Select one of the options.");
-    }
 }

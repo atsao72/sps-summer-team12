@@ -54,11 +54,11 @@ public class FormHandlerServlet extends HttpServlet {
     // Getting values entered in the form.
     String userReview = Jsoup.clean(request.getParameter("review-input"), Whitelist.none());
 
-    //String relevantReviewTags = convertArrayListToString(new EntityParser(userReview).getRelevantEntities());
-    //String allReviewTags = convertArrayListToString(new EntityParser(userReview).getAllEntities());
+    String relevantReviewTags = convertArrayListToString(new EntityParser(userReview).getRelevantEntities());
+    String allReviewTags = convertArrayListToString(new EntityParser(userReview).getAllEntities());
 
-    String relevantReviewTags = "";
-    String allReviewTags = "";
+    //String relevantReviewTags = "";
+    //String allReviewTags = "";
 
     boolean parking = false;
     int noiseScore = 0;

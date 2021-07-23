@@ -45,7 +45,8 @@ public final class Post {
         this.timeStamp = timeStamp;
     }
 
-    /**
+
+	/**
     * Function used to generate a Post debug string
     */
     public String generateDebugString(){

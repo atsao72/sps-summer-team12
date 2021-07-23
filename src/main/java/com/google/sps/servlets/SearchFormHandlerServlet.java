@@ -42,7 +42,6 @@ public class SearchFormHandlerServlet extends HttpServlet {
             .set("filter1", filter1)
             .set("filter2", filter2)
             .set("filter3", filter3)
-            .set("timestamp", timestamp)
             .build();
     datastore.put(taskEntity);
 

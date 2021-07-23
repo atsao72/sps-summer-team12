@@ -96,3 +96,19 @@
 .post span {
   flex-grow: 1;
 }
+
+.individuals {
+
+    background-color: lightblue;
+    padding: 30px;
+    padding-bottom: 50%;
+    font-family: georgia;
+}
+
+p.name {
+  font-weight: bold;
+}
+.title {
+    font-weight: bold;
+    text-align: center;
+}
